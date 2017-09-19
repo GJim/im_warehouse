@@ -1,0 +1,92 @@
+﻿create table manager_users (
+	id		varchar(10)		not null,
+	password	varchar(300)	not null,
+	name		varchar(50)	not null,
+	position	varchar(10)	not null,
+	primary key(id)
+) engine = innodb
+  charset = utf8
+  collate = utf8_unicode_ci
+
+//position 1.管理員 2.工讀生
+
+create table users (
+	id	 		varchar(10)		not null,
+	name	 		varchar(50)	not null,
+	department	 	varchar(50)	not null,
+	position 		varchar(50) 	not null,
+	phone	 		varchar(20)		null,
+	error			int(3)	not null	default 0,
+	book_quantity		int(3)		not null	default 0,
+	magazine_quantity	int(3)		not null	default 0,
+	error_date		date		null,
+	block_date		date		null,
+	status	 		varchar(10)	not null,
+	primary  		key(id)
+) engine = innodb
+  charset = utf8
+  collate = utf8_unicode_ci
+
+//status 1.可使用 2.封鎖中
+
+create table items (
+	id		varchar(6) 	not null,
+	category   varchar(50)	not null,
+	name		varchar(100)	not null,
+	colm1		varchar(50)	null,
+	colm2	varchar(50)	null,
+	colm3		varchar(50)	null,
+	status		varchar(10) 	not null,
+	primary key(id)
+) engine = innodb
+  charset = utf8
+  collate = utf8_unicode_ci
+
+//colm1(論文[英文名稱]/書籍[作者]/雜誌[出版社]/電腦[財產編號])
+//colm2(論文[作者]/書籍[出版社]/雜誌[期別]/電腦[廠牌型號])
+//colm3(論文[指導老師]/電腦[購置日期])
+//status 1.存貨中 2.借閱中 3.保留中
+
+create table record (
+	no 			int 		not null	auto_increment,
+	manager_id		varchar(10)		not null,
+	user_id			varchar(10)		not null,
+	item_id			varchar(6)		not null,
+	card	varchar(6)	not null,
+	return_status		varchar(10)	not null,
+	borrow_date 		date		null,
+	should_return_date	date		null,
+	return_date		date		null,
+	primary key(no),
+	index(manager_id),
+	foreign key (manager_id) references manager_users(id)
+	on update cascade on delete restrict,
+	index(user_id),
+	foreign key (user_id) references users(id)
+	on update cascade on delete restrict,
+	index(item_id),
+	foreign key (item_id) references items(id)
+	on update cascade on delete restrict
+) engine = innodb
+  charset = utf8
+  collate = utf8_unicode_ci
+
+//return_status 1.尚未歸還 2.已歸還
+
+create table notes (
+	no			int 	not null	auto_increment,
+	manager_id		varchar(10)		not null,
+	type	varchar(10)		not null,
+	content			text		null,
+	create_date 		date		null,
+	status varchar(10)	null,
+	primary key(no),
+	index(manager_id),
+	foreign key (manager_id) references manager_users(id)
+	on update cascade on delete restrict
+) engine = innodb
+  charset = utf8
+  collate = utf8_unicode_ci
+
+//type 1.記事 2.公告
+//status 1.current 2.delete
