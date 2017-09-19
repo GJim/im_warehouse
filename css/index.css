@@ -1,0 +1,85 @@
+@media screen and (min-width:500px) {
+  header, main, footer {
+    padding-left: 200px;
+  }
+
+  #slide-out {
+    width: 200px;
+  }
+}
+
+html {
+  font-family: 微軟正黑體, sans-serif;
+}
+
+tbody {
+  display:block;
+  max-height:300px;
+  overflow:auto;
+}
+
+thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+
+thead {
+  width: calc( 100% - 1em )
+}
+
+.forms, #announcement .card-title, #memo .card-title{
+  text-align: center;
+}
+
+.collapsible-body a, .highlight > tbody, .selAll {
+  cursor: pointer;
+}
+
+.imicon {
+  text-align: center;
+}
+
+.imicon > img{
+  max-width: 70%;
+}
+
+#smg, #sur, #sit, #srd, #snt {
+  border: 0px;
+  box-shadow: 0px;
+  margin: 0px;
+}
+
+.sicon {
+  margin-top: 13px;
+  cursor: pointer;
+}
+
+#emp-modal {
+  width: 40%;
+}
+
+#eup-modal {
+  width: 80%;
+}
+
+#eip-modal {
+  width: 100%;
+}
+
+#crp-item > h4, #crp-user > h4 {
+  padding-left: 5%;
+}
+
+#crp-item > p, #crp-user > p {
+  padding-left: 10%;
+  font-size: 18px;
+}
+
+#announcement-content > p, #memo-content > p {
+  font-size: 10px;
+}
+
+#announcement-content > p > b, #memo-content > p > b {
+  font-size: 18px;
+}
