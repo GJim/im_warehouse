@@ -1507,7 +1507,7 @@ function edNo() {
   let encontent = "";
   for(let i=0; i<id.length; i++) {
     enid += ','+id[i].textContent;
-    encontent += ','+content[i].value;
+    encontent += ','+content[i].val();
   }
   $.ajax({
     url: './controller.php',

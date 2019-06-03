@@ -8,8 +8,8 @@ if(isset($_POST['logId']) && isset($_POST['logPwd'])){
   $id = $_POST['logId'];
   $pwd = $_POST['logPwd'];
   $login = login($id, $pwd);
-  if( mysql_num_rows($login) == 1 ){
-    $data = mysql_fetch_assoc($login);
+  if( mysqli_num_rows($login) == 1 ){
+    $data = mysqli_fetch_assoc($login);
     $_SESSION['position'] = $data['position'];
     $_SESSION['id'] = $data['id'];
     echo '{"R":"登入成功", "S": 1}';
@@ -66,9 +66,9 @@ if(isset($_POST['ltMgKey'])) {
   if(isset($_SESSION['position']) && $_SESSION['position'] == '管理員'){
     $key = $_POST['ltMgKey'];
     $data = searchManagerByKey($key);
-    if(mysql_num_rows($data) >0){
+    if(mysqli_num_rows($data) >0){
       $arr = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('id' => $rs['id'],
                'name' => $rs['name'],
                'password' => base64_decode($rs['password']),
@@ -101,9 +101,9 @@ if(isset($_POST['edMgId']) && isset($_POST['edMgName']) && isset($_POST['edMgPwd
     if($rs == 0){
       $key = $_POST['edMgKey'];
       $data = searchManagerByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'name' => $rs['name'],
                  'password' => base64_decode($rs['password']),
@@ -135,9 +135,9 @@ if(isset($_POST['deMgId']) && isset($_POST['deMgKey'])) {
     if($rs == 0){
       $key = $_POST['deMgKey'];
       $data = searchManagerByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'name' => $rs['name'],
                  'password' => base64_decode($rs['password']),
@@ -208,9 +208,9 @@ if(isset($_POST['ltUrKey'])) {
   if(isset($_SESSION['id'])){
     $key = $_POST['ltUrKey'];
     $data = searchUserByKey($key);
-    if(mysql_num_rows($data) >0){
+    if(mysqli_num_rows($data) >0){
       $arr = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('id' => $rs['id'],
                'name' => $rs['name'],
                'department' => $rs['department'],
@@ -247,9 +247,9 @@ if(isset($_POST['edUrId']) && isset($_POST['edUrName']) && isset($_POST['edUrNum
     if($rs == 0){
       $key = $_POST['edUrKey'];
       $data = searchUserByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'name' => $rs['name'],
                  'department' => $rs['department'],
@@ -280,9 +280,9 @@ if(isset($_POST['reUrId']) && isset($_POST['reUrKey'])) {
     }
     if($rs == 0){
       $data = searchUserByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'name' => $rs['name'],
                  'department' => $rs['department'],
@@ -316,9 +316,9 @@ if(isset($_POST['deUrId']) && isset($_POST['deUrKey'])) {
     if($rs == 0){
       $key = $_POST['deUrKey'];
       $data = searchUserByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'name' => $rs['name'],
                  'department' => $rs['department'],
@@ -363,9 +363,9 @@ if(isset($_POST['ltItKey'])) {
   if(isset($_SESSION['id'])){
     $key = $_POST['ltItKey'];
     $data = searchItemByKey($key);
-    if(mysql_num_rows($data) >0){
+    if(mysqli_num_rows($data) >0){
       $arr = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('id' => $rs['id'],
                'category' => $rs['category'],
                'name' => $rs['name'],
@@ -405,9 +405,9 @@ if(isset($_POST['edItId']) && isset($_POST['edItName']) && isset($_POST['edItCol
     if($rs == 0){
       $key = $_POST['edItKey'];
       $data = searchItemByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'category' => $rs['category'],
                  'name' => $rs['name'],
@@ -448,9 +448,9 @@ if(isset($_POST['reItId']) && isset($_POST['reItSts']) && isset($_POST['reItKey'
     if($rs == 0){
       $key = $_POST['reItKey'];
       $data = searchItemByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'category' => $rs['category'],
                  'name' => $rs['name'],
@@ -485,9 +485,9 @@ if(isset($_POST['deItId']) && isset($_POST['deItKey'])) {
     if($rs == 0){
       $key = $_POST['deItKey'];
       $data = searchItemByKey($key);
-      if(mysql_num_rows($data) >0){
+      if(mysqli_num_rows($data) >0){
         $arr = [];
-        while($rs=mysql_fetch_assoc($data)){
+        while($rs=mysqli_fetch_assoc($data)){
           array_push($arr, array('id' => $rs['id'],
                  'category' => $rs['category'],
                  'name' => $rs['name'],
@@ -514,8 +514,8 @@ if(isset($_POST['getUrId'])) {
   if(isset($_SESSION['id'])){
     $id = $_POST['getUrId'];
     $data = searchUserById($id);
-    if(mysql_num_rows($data) >0){
-      $rs=mysql_fetch_assoc($data);
+    if(mysqli_num_rows($data) >0){
+      $rs=mysqli_fetch_assoc($data);
       echo '{"R":{"uName": "'.$rs["name"].'","pos": "'.$rs["position"].'"}, "S": 1}';
     }else {
       echo '{"R":"使用者不存在", "S": 0}';
@@ -530,8 +530,8 @@ if(isset($_POST['getItId'])) {
   if(isset($_SESSION['id'])){
     $id = $_POST['getItId'];
     $data = searchItemById($id);
-    if(mysql_num_rows($data) >0){
-      $rs=mysql_fetch_assoc($data);
+    if(mysqli_num_rows($data) >0){
+      $rs=mysqli_fetch_assoc($data);
       echo '{"R":{"cat": "'.$rs["category"].'", "iName": "'.$rs["name"].'", "iSts": "'.$rs["status"].'"}, "S": 1}';
     }else {
       echo '{"R":"物品不存在", "S": 0}';
@@ -550,8 +550,8 @@ if (isset($_POST['crpUid']) && isset($_POST['crpIid']) && isset($_POST['crpCard'
     $day = $_POST['crpDay'];
     $uDt = searchUserById($uid);
     $iDt = searchItemById($iid);
-    $uRs=mysql_fetch_assoc($uDt);
-    $iRs=mysql_fetch_assoc($iDt);
+    $uRs=mysqli_fetch_assoc($uDt);
+    $iRs=mysqli_fetch_assoc($iDt);
     $now = date('Y-m-d');
     $pos = $uRs['position'];
     $bq = $uRs['book_quantity'];
@@ -561,12 +561,12 @@ if (isset($_POST['crpUid']) && isset($_POST['crpIid']) && isset($_POST['crpCard'
       if (updateUserStatusToFree($uid)) {
         $uDt = searchUserById($uid);
         $iDt = searchItemById($iid);
-        $uRs=mysql_fetch_assoc($uDt);
-        $iRs=mysql_fetch_assoc($iDt);
+        $uRs=mysqli_fetch_assoc($uDt);
+        $iRs=mysqli_fetch_assoc($iDt);
       }
     }
     //check input data valid
-    if(mysql_num_rows($uDt)>0 && mysql_num_rows($iDt)>0){
+    if(mysqli_num_rows($uDt)>0 && mysqli_num_rows($iDt)>0){
       //check day valid accroding to position
       if($iRs['status'] == '存貨中' && $uRs['status'] == '可使用') {
         $cat = mb_substr($iRs['category'], 0, 2, 'UTF-8');
@@ -594,7 +594,7 @@ if (isset($_POST['crpUid']) && isset($_POST['crpIid']) && isset($_POST['crpCard'
         if($type == 1) {
           $data = searchBorrowingRecord();
           $arr = [];
-          while($rs=mysql_fetch_assoc($data)){
+          while($rs=mysqli_fetch_assoc($data)){
             array_push($arr, array('no' => $rs['no'],
                    'id' => $rs['id'],
                    'cat' => $rs['category'],
@@ -625,7 +625,7 @@ if (isset($_POST['crpUid']) && isset($_POST['crpIid']) && isset($_POST['crpCard'
 if(isset($_POST['gtBg'])){
   $data = searchBorrowingRecord();
   $arr = [];
-  while($rs=mysql_fetch_assoc($data)){
+  while($rs=mysqli_fetch_assoc($data)){
     array_push($arr, array('no' => $rs['no'],
            'id' => $rs['id'],
            'cat' => $rs['category'],
@@ -647,14 +647,14 @@ if(isset($_POST['rtNo'])){
     //get user id and item id
     for($i=0; $i<count($nos); $i++) {
       $rd = searchRecordByNo($nos[$i]);
-      $rrs = mysql_fetch_assoc($rd);
-      if(mysql_num_rows($rd) >0 && $rrs['return_status'] == '尚未歸還') {
+      $rrs = mysqli_fetch_assoc($rd);
+      if(mysqli_num_rows($rd) >0 && $rrs['return_status'] == '尚未歸還') {
         $uid = $rrs['user_id'];
         $iid = $rrs['item_id'];
         $urd = searchUserById($uid);
-        $urs = mysql_fetch_assoc($urd);
+        $urs = mysqli_fetch_assoc($urd);
         $itd = searchItemById($iid);
-        $irs = mysql_fetch_assoc($itd);
+        $irs = mysqli_fetch_assoc($itd);
         $cat = mb_substr($irs['category'], 0, 2, 'UTF-8');
         $now = date('Y-m-d');
         $time = mktime(date('H'),date('i'),date('s'));
@@ -726,7 +726,7 @@ if(isset($_POST['rtNo'])){
     } else {
       $data = searchBorrowingRecord();
       $arr = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('no' => $rs['no'],
                'id' => $rs['id'],
                'cat' => $rs['category'],
@@ -782,7 +782,7 @@ if(isset($_POST['etNo']) && isset($_POST['etDay']) && isset($_POST['etCat']) && 
     if($type == 1) {
       $data = searchBorrowingRecord();
       $arr = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('no' => $rs['no'],
                'id' => $rs['id'],
                'cat' => $rs['category'],
@@ -808,9 +808,9 @@ if(isset($_POST['ltRdKey'])) {
   if(isset($_SESSION['id'])){
     $key = $_POST['ltRdKey'];
     $data = searchRecordByKey($key);
-    if(mysql_num_rows($data) >0){
+    if(mysqli_num_rows($data) >0){
       $arr = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('no' => $rs['no'],
                'mna' => $rs['mna'],
                'una' => $rs['una'],
@@ -834,14 +834,14 @@ if(isset($_POST['tbNo'])) {
   if(isset($_SESSION['id'])){
     $no = $_POST['tbNo'];
     $rd = searchRecordByNo($no);
-    $rrs = mysql_fetch_assoc($rd);
+    $rrs = mysqli_fetch_assoc($rd);
     $uid = $rrs['user_id'];
     $iid = $rrs['item_id'];
     $uDt = searchUserById($uid);
     $iDt = searchItemById($iid);
-    $uRs=mysql_fetch_assoc($uDt);
-    $iRs=mysql_fetch_assoc($iDt);
-    if(mysql_num_rows($rd) >0 && $rrs['return_status'] == '已歸還' && $iRs['status'] == '存貨中') {
+    $uRs=mysqli_fetch_assoc($uDt);
+    $iRs=mysqli_fetch_assoc($iDt);
+    if(mysqli_num_rows($rd) >0 && $rrs['return_status'] == '已歸還' && $iRs['status'] == '存貨中') {
       $bq = $uRs['book_quantity'];
       $mq = $uRs['magazine_quantity'];
       $cat = mb_substr($iRs['category'], 0, 2, 'UTF-8');
@@ -879,11 +879,11 @@ if(isset($_POST['ltNo'])){
   $dt2 = searchNoteByType('公告');
   $ar1 = [];
   $ar2 = [];
-  while($rs1=mysql_fetch_assoc($dt1)){
+  while($rs1=mysqli_fetch_assoc($dt1)){
     array_push($ar1, array('con' => $rs1['content'],
            'cd' => $rs1['create_date']));
   }
-  while($rs2=mysql_fetch_assoc($dt2)){
+  while($rs2=mysqli_fetch_assoc($dt2)){
     array_push($ar2, array('con' => $rs2['content'],
            'cd' => $rs2['create_date']));
   }
@@ -895,9 +895,9 @@ if(isset($_POST['ltNo'])){
 if(isset($_POST['ltNoKey'])){
   $key = $_POST['ltNoKey'];
   $data = searchNoteByKey($key);
-  if(mysql_num_rows($data) >0){
+  if(mysqli_num_rows($data) >0){
     $arr = [];
-    while($rs=mysql_fetch_assoc($data)){
+    while($rs=mysqli_fetch_assoc($data)){
       array_push($arr, array('no' => $rs['no'],
              'mna' => $rs['name'],
              'type' => $rs['type'],
@@ -914,17 +914,17 @@ if(isset($_POST['ltNoKey'])){
 if(isset($_POST['ctNoType']) && isset($_POST['ctNoCon'])){
   if(isset($_SESSION['id'])){
     $type = $_POST['ctNoType'];
-    $content = mysql_real_escape_string($_POST['ctNoCon']);
+    $content = $_POST['ctNoCon'];
     if(createNote($type, $content)){
       $dt1 = searchNoteByType('記事');
       $dt2 = searchNoteByType('公告');
       $ar1 = [];
       $ar2 = [];
-      while($rs1=mysql_fetch_assoc($dt1)){
+      while($rs1=mysqli_fetch_assoc($dt1)){
         array_push($ar1, array('con' => $rs1['content'],
                'cd' => $rs1['create_date']));
       }
-      while($rs2=mysql_fetch_assoc($dt2)){
+      while($rs2=mysqli_fetch_assoc($dt2)){
         array_push($ar2, array('con' => $rs2['content'],
                'cd' => $rs2['create_date']));
       }
@@ -959,18 +959,18 @@ if(isset($_POST['edNoId']) && isset($_POST['edNoCon']) && isset($_POST['edNoKey'
       $arr = [];
       $ar1 = [];
       $ar2 = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('no' => $rs['no'],
                'mna' => $rs['name'],
                'type' => $rs['type'],
                'con' => $rs['content'],
                'cd' => $rs['create_date']));
       }
-      while($rs1=mysql_fetch_assoc($dt1)){
+      while($rs1=mysqli_fetch_assoc($dt1)){
         array_push($ar1, array('con' => $rs1['content'],
                'cd' => $rs1['create_date']));
       }
-      while($rs2=mysql_fetch_assoc($dt2)){
+      while($rs2=mysqli_fetch_assoc($dt2)){
         array_push($ar2, array('con' => $rs2['content'],
                'cd' => $rs2['create_date']));
       }
@@ -1003,18 +1003,18 @@ if(isset($_POST['deNoId']) && isset($_POST['deNoKey'])){
       $arr = [];
       $ar1 = [];
       $ar2 = [];
-      while($rs=mysql_fetch_assoc($data)){
+      while($rs=mysqli_fetch_assoc($data)){
         array_push($arr, array('no' => $rs['no'],
                'mna' => $rs['name'],
                'type' => $rs['type'],
                'con' => $rs['content'],
                'cd' => $rs['create_date']));
       }
-      while($rs1=mysql_fetch_assoc($dt1)){
+      while($rs1=mysqli_fetch_assoc($dt1)){
         array_push($ar1, array('con' => $rs1['content'],
                'cd' => $rs1['create_date']));
       }
-      while($rs2=mysql_fetch_assoc($dt2)){
+      while($rs2=mysqli_fetch_assoc($dt2)){
         array_push($ar2, array('con' => $rs2['content'],
                'cd' => $rs2['create_date']));
       }
