@@ -25,7 +25,7 @@ function login() {
       },
       success: function(data) {
         if(data.S) {
-          window.location.href = 'index.html';
+          window.location.href = 'main.html';
         }
         else {
           Materialize.toast(data.R, 2000, 'red-text red lighten-5');

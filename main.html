@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>IM Warehouse</title>
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="css/index.css"/>
+<!--Let browser know website is optimized for mobile-->
+<link rel="shortcut icon" href="images/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+  <header>
+    <ul id="slide-out" class="side-nav fixed hide-on-small-only">
+      <li class="no-padding">
+        <ul class="collapsible" data-collapsible="accordion">
+          <li>
+            <div class="imicon">
+              <img src="images/IM105.png">
+            </div>
+          </li>
+          <li hidden class="authFunc">
+            <div class="collapsible-header"><i class="material-icons">supervisor_account</i>管理員管理</div>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a id="cm" class="links">新增</a>
+                </li>
+                <li>
+                  <a id="em" class="links">編輯</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">perm_identity</i>使用者管理</div>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a id="cu" class="links">新增</a>
+                </li>
+                <li>
+                  <a id="bcu" class="links">批次新增</a>
+                </li>
+                <li>
+                  <a id="eu" class="links">編輯</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">work</i>物品管理</div>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a id="ci" class="links">新增</a>
+                </li>
+                <li>
+                  <a id="ei" class="links">編輯</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">mode_edit</i>便利貼管理</div>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a id="cn" class="links">新增</a>
+                </li>
+                <li>
+                  <a id="en" class="links">編輯</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div id="br" class="collapsible-header links"><i class="material-icons">comment</i>借閱紀錄</div>
+          </li>
+          <li>
+            <div id="cr" class="collapsible-header links"><i class="material-icons">input</i>借閱</div>
+          </li>
+          <li>
+            <div id="logout" class="collapsible-header"><i class="material-icons">power_settings_new</i>登出</div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <nav class="top-nav indigo darken-3">
+    </nav>
+  </header>
+  <main>
+    <div class="row">
+      <div class="col s12 m9">
+        <div class="card">
+          <div id="borrowing" class="card-content bw-elm">
+            <div class="row bw-elm" hidden>
+              <div class="col s12">
+                <div class="col s6 forms">
+                  <a id="return-btn" class="waves-effect waves-light blue darken-1 btn">歸還</a>
+                </div>
+                <div class="col s6 forms">
+                  <a id="extend-btn" class="waves-effect waves-light btn">續借</a>
+                </div>
+              </div>
+            </div>
+            <table class="highlight">
+              <thead>
+                <tr>
+                  <th class="selAll"><i class="material-icons">done_all</i></th>
+                  <th>編號</th>
+                  <th>分類</th>
+                  <th>物品名稱</th>
+                  <th>使用者名稱</th>
+                  <th>證件</th>
+                  <th>剩餘天數</th>
+                </tr>
+              </thead>
+              <tbody class="with-check"></tbody>
+            </table>
+            <div id="bw-modal" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <div class="card">
+                  <div id="bw-modal-table" class="card-content">
+                    <table class="highlight" hidden>
+                      <thead>
+                        <tr>
+                          <th>物品</th>
+                          <th>分類</th>
+                          <th>使用者</th>
+                          <th>續借天數</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                    <p class="bw-del-msg" hidden></p>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer"></div>
+            </div>
+          </div>
+          <div id="other" class="card-content grey lighten-4">
+            <div id="cmp" hidden>
+              <div class="card">
+                <div class="card-content hoverable">
+                  <form action="/" id="cmp-form">
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cmp-id" type="text" class="validate" pattern="[0-9a-zA-Z]+">
+                        <label>帳號</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cmp-pwd" type="password" class="validate" pattern="\S+">
+                        <label>密碼</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cmp-name" type="text" class="validate" pattern="\S+">
+                        <label>姓名</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <select id="cmp-pos">
+                          <option value="工讀生" selected>工讀生</option>
+                          <option value="管理員">管理員</option>
+                        </select>
+                        <label>身分</label>
+                      </div>
+                    </div>
+                    <input id="r-cmp-btn" type="submit" value="" hidden>
+                    <div class="row">
+                      <div class="input-field col s12 forms">
+                        <a id="cmp-btn" class="waves-effect waves-light light-blue btn">新增</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="emp" hidden>
+              <div class="row">
+                <div class="card">
+                  <div class="card-panel hoverable col s12">
+                    <div class="col s11">
+                      <input id="smg" type="text"/>
+                    </div>
+                    <div id="smg-icon" class="col s1 sicon">
+                      <i class="material-icons">search</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row emp-elm" hidden>
+                <div class="col s12">
+                  <div class="col s6 forms">
+                    <a id="emp-edit-btn" class="waves-effect waves-light blue darken-1 btn">修改</a>
+                  </div>
+                  <div class="col s6 forms">
+                    <a id="emp-del-btn" class="waves-effect waves-light red darken-4 btn">刪除</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row emp-elm" hidden>
+                <div class="col s12">
+                  <div class="card">
+                    <div id="emp-table" class="card-content hoverable">
+                      <table class="highlight">
+                        <thead>
+                          <tr>
+                            <th class="selAll"><i class="material-icons">done_all</i></th>
+                            <th>帳號</th>
+                            <th>姓名</th>
+                            <th>身分</th>
+                          </tr>
+                        </thead>
+                        <tbody class="with-check"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="emp-modal" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <div class="card">
+                    <div id="emp-modal-table" class="card-content">
+                      <table class="highlight" hidden>
+                        <thead>
+                          <tr>
+                            <th>帳號</th>
+                            <th>姓名</th>
+                            <th>密碼</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                      <p class="emp-del-msg" hidden></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </div>
+            <div id="cup" hidden>
+              <div class="card">
+                <div class="card-content hoverable">
+                  <form action="/" id="cup-form">
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cup-id" type="text" class="validate" pattern="[0-9]+">
+                        <label>學號</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cup-name" type="text" class="validate" pattern="\S+">
+                        <label>姓名</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <select id="cup-dep">
+                          <option value="資訊管理學系" selected>資訊管理學系</option>
+          								<option value="財務金融學系">財務金融學系</option>
+          								<option value="國際企業學系">國際企業學系</option>
+          								<option value="經濟學系">經濟學系</option>
+          								<option value="觀光休閒與餐旅管理學系">觀光休閒與餐旅管理學系</option>
+          								<option value="中國語文學系">中國語文學系</option>
+          								<option value="外國語文學系">外國語文學系</option>
+          								<option value="社會政策與社會工作學系">社會政策與社會工作學系</option>
+          								<option value="公共行政與政策學系">公共行政與政策學系</option>
+          								<option value="歷史學系">歷史學系</option>
+          								<option value="東南亞學系">東南亞學系</option>
+          								<option value="土木工程學系">土木工程學系</option>
+          								<option value="資訊工程學系">資訊工程學系</option>
+          								<option value="電機工程學系">電機工程學系</option>
+          								<option value="應用化學系">應用化學系</option>
+          								<option value="國際文教與比較教育學系">國際文教與比較教育學系</option>
+          								<option value="教育政策與行政學系">教育政策與行政學系</option>
+                        </select>
+                        <label>系所</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <select id="cup-pos">
+                          <option value="學士班" selected>學士班</option>
+          								<option value="碩士班">碩士班</option>
+          								<option value="教職員">教職員</option>
+                        </select>
+                        <label>學制</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cup-num" type="text" class="validate" pattern="^09[0-9]{8}$">
+                        <label>手機</label>
+                      </div>
+                    </div>
+                    <input id="r-cup-btn" type="submit" value="" hidden>
+                    <div class="row">
+                      <div class="input-field col s12 forms">
+                        <a id="cup-btn" class="waves-effect waves-light light-blue btn">新增</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="bcup" hidden>
+              <div class="card">
+                <div class="card-content hoverable">
+                  <form action="/" id="bcup-form">
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <textarea id="bcup-data" class="materialize-textarea"></textarea>
+                        <label>範例(105213517 蔡智鈞 0975xxxxxx 碩士班 資訊管理學系)</label>
+                      </div>
+                    </div>
+                    <input id="r-bcup-btn" type="submit" value="" hidden>
+                    <div class="row">
+                      <div class="input-field col s12 forms">
+                        <a id="bcup-btn" class="waves-effect waves-light light-blue btn">新增</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="eup" hidden>
+              <div class="row">
+                <div class="card">
+                  <div class="card-panel hoverable col s12">
+                    <div class="col s11">
+                      <input id="sur" type="text"/>
+                    </div>
+                    <div id="sur-icon" class="col s1 sicon">
+                      <i class="material-icons">search</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row eup-elm" hidden>
+                <div class="col s12">
+                  <div class="col s6 forms">
+                    <a id="eup-edit-btn" class="waves-effect waves-light blue darken-1 btn">修改</a>
+                  </div>
+                  <div class="col s6 forms">
+                    <a id="eup-del-btn" class="waves-effect waves-light red darken-4 btn">刪除</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row eup-elm" hidden>
+                <div class="col s12">
+                  <div class="card">
+                    <div id="eup-table" class="card-content hoverable">
+                      <table class="highlight">
+                        <thead>
+                          <tr>
+                            <th class="selAll"><i class="material-icons">done_all</i></th>
+                            <th>學號</th>
+                            <th>姓名</th>
+                            <th>系所</th>
+                            <th>手機</th>
+                            <th>狀態</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody class="with-check"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="eup-modal" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <div class="card">
+                    <div id="eup-modal-table" class="card-content">
+                      <table class="highlight" hidden>
+                        <thead>
+                          <tr>
+                            <th>學號</th>
+                            <th>姓名</th>
+                            <th>系所</th>
+                            <th>手機</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                      <p class="eup-del-msg" hidden></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </div>
+            <div id="cip" hidden>
+              <div class="card">
+                <div class="card-content hoverable">
+                  <form action="/" id="cip-form">
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cip-id" type="text" class="validate" pattern="^[1-5][0-9]{5}$">
+                        <label>編號</label>
+                      </div>
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cip-name" type="text" class="validate">
+                        <label>名稱</label>
+                      </div>
+                      <div class="input-field col m8 offset-m2 s12 colm" hidden>
+                        <input id="cip-colm1" type="text" class="validate">
+                        <label></label>
+                      </div>
+                      <div class="input-field col m8 offset-m2 s12 colm" hidden>
+                        <input id="cip-colm2" type="text" class="validate">
+                        <label></label>
+                      </div>
+                      <div class="input-field col m8 offset-m2 s12 colm" hidden>
+                        <input id="cip-colm3" type="text" class="validate">
+                        <label></label>
+                      </div>
+                    </div>
+                    <input id="r-cip-btn" type="submit" value="" hidden>
+                    <div class="row">
+                      <div class="input-field col s12 forms">
+                        <a id="cip-btn" class="waves-effect waves-light light-blue btn">新增</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="eip" hidden>
+              <div class="row">
+                <div class="card">
+                  <div class="card-panel hoverable col s12">
+                    <div class="col s11">
+                      <input id="sit" type="text"/>
+                    </div>
+                    <div id="sit-icon" class="col s1 sicon">
+                      <i class="material-icons">search</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row eip-elm" hidden>
+                <div class="col s12">
+                  <div class="col s6 forms">
+                    <a id="eip-edit-btn" class="waves-effect waves-light blue darken-1 btn">修改</a>
+                  </div>
+                  <div class="col s6 forms">
+                    <a id="eip-del-btn" class="waves-effect waves-light red darken-4 btn">刪除</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row eip-elm" hidden>
+                <div class="col s12">
+                  <div class="card">
+                    <div id="eip-table" class="card-content hoverable">
+                      <table class="highlight">
+                        <thead>
+                          <tr>
+                            <th class="selAll"><i class="material-icons">done_all</i></th>
+                            <th>編號</th>
+                            <th>分類</th>
+                            <th>名稱</th>
+                            <th>狀態</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody class="with-check"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="eip-modal" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <div class="card">
+                    <div id="eip-modal-table" class="card-content">
+                      <table class="highlight" hidden>
+                        <thead>
+                          <tr>
+                            <th>編號</th>
+                            <th>名稱</th>
+                            <th>英文名稱</th>
+                            <th>作者</th>
+                            <th>指導老師</th>
+                            <th>出版社</th>
+                            <th>期別</th>
+                            <th>財產編號</th>
+                            <th>廠牌型號</th>
+                            <th>購置日期</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                      <p class="eip-del-msg" hidden></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </div>
+            <div id="brp" hidden>
+              <div class="row">
+                <div class="card">
+                  <div class="card-panel hoverable col s12">
+                    <div class="col s11">
+                      <input id="srd" type="text"/>
+                    </div>
+                    <div id="srd-icon" class="col s1 sicon">
+                      <i class="material-icons">search</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row brp-elm" hidden>
+                <div class="col s12">
+                  <div class="card">
+                    <div id="brp-table" class="card-content hoverable">
+                      <table class="highlight">
+                        <thead>
+                          <tr>
+                            <th>管理員</th>
+                            <th>使用者</th>
+                            <th>物品</th>
+                            <th>狀態</th>
+                            <th>借閱日期</th>
+                            <th>歸還日期</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody class="with-check"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="crp" hidden>
+              <div class="row">
+                <div class="card col m6 s12">
+                  <div class="card-content hoverable">
+                    <form action="/" id="crp-form">
+                      <div class="row">
+                        <div class="input-field col s12 m8 offset-m2">
+                          <input id="crp-iid" type="text">
+                          <label for="crp-iid">物品編號</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12 m8 offset-m2">
+                          <input id="crp-uid" type="text">
+                          <label for="crp-uid">學號</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12 m8 offset-m2">
+                          <select id="crp-card">
+                            <option value="學生證" selected>學生證</option>
+            								<option value="健保卡">健保卡</option>
+            								<option value="身分證">身分證</option>
+                            <option value="駕照">駕照</option>
+                          </select>
+                          <label>抵押證件</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12 m8 offset-m2">
+                          <input id="crp-day" type="number" value="1">
+                          <label for="crp-day">借閱天數</label>
+                        </div>
+                      </div>
+                      <input id="r-crp-btn" type="submit" value="" hidden>
+                      <div class="row">
+                        <div class="input-field col s12 forms">
+                          <a id="crp-btn" class="waves-effect waves-light light-blue btn">借閱</a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="card grey darken-1 col m6 s12 checklist" hidden>
+                  <div class="card-content white-text hoverable">
+                    <h3>確認單</h3>
+                    <div id="crp-item" hidden>
+                      <h4>物品</h5>
+                      <p>
+                        <b> 分類 </b>
+                        <span id="crp-cat"></span>
+                      </p>
+                      <p>
+                        <b> 名稱 </b>
+                        <span id="crp-iName"></span>
+                      </p>
+                      <p>
+                        <b> 狀態 </b>
+                        <span id="crp-iSts"></span>
+                      </p>
+                    </div>
+                    <div id="crp-user" hidden>
+                      <h4>使用者</h5>
+                      <p>
+                        <b> 名稱 </b>
+                        <span id="crp-uName"></span>
+                      </p>
+                      <p>
+                        <b> 職位 </b>
+                        <span id="crp-pos"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="cnp" hidden>
+              <div class="card">
+                <div class="card-content hoverable">
+                  <form action="/" id="cnp-form">
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <input id="cnp-content" type="text" class="validate">
+                        <label>內容</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col m8 offset-m2 s12">
+                        <select id="cnp-type">
+                          <option value="記事" selected>工讀生記事</option>
+                          <option value="公告">公告事項</option>
+                        </select>
+                        <label>類型</label>
+                      </div>
+                    </div>
+                    <input id="r-cnp-btn" type="submit" value="" hidden>
+                    <div class="row">
+                      <div class="input-field col s12 forms">
+                        <a id="cnp-btn" class="waves-effect waves-light light-blue btn">新增</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="enp" hidden>
+              <div class="row">
+                <div class="card">
+                  <div class="card-panel hoverable col s12">
+                    <div class="col s11">
+                      <input id="snt" type="text"/>
+                    </div>
+                    <div id="snt-icon" class="col s1 sicon">
+                      <i class="material-icons">search</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row enp-elm" hidden>
+                <div class="col s12">
+                  <div class="col s6 forms">
+                    <a id="enp-edit-btn" class="waves-effect waves-light blue darken-1 btn">修改</a>
+                  </div>
+                  <div class="col s6 forms">
+                    <a id="enp-del-btn" class="waves-effect waves-light red darken-4 btn">刪除</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row enp-elm" hidden>
+                <div class="col s12">
+                  <div class="card">
+                    <div id="enp-table" class="card-content hoverable">
+                      <table class="highlight">
+                        <thead>
+                          <tr>
+                            <th class="selAll"><i class="material-icons">done_all</i></th>
+                            <th>筆者</th>
+                            <th>分類</th>
+                            <th>內容</th>
+                            <th>日期</th>
+                          </tr>
+                        </thead>
+                        <tbody class="with-check"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="enp-modal" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <div class="card">
+                    <div id="enp-modal-table" class="card-content">
+                      <table class="highlight" hidden>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>分類</th>
+                            <th>內容</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                      <p class="enp-del-msg" hidden></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m3">
+        <div id="announcement">
+          <div class="card yellow lighten-2">
+            <div class="card-content">
+              <span class="card-title">公告事項</span>
+              <div id="announcement-content"></div>
+            </div>
+          </div>
+        </div>
+        <div id="memo">
+          <div class="card light-blue darken-2">
+            <div class="card-content white-text">
+              <span class="card-title">工讀生記事</span>
+              <div id="memo-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer indigo darken-3">
+    <div class="row">
+      <div class="col s12">
+        <div class="container">
+          <p class="white-text text-lighten-4">一個人的價值，應該看他貢獻了什麼，而不是取得了什麼。 - 愛因斯坦</p>
+        </div>
+        <div class="footer-copyright indigo darken-4">
+          <div class="container">
+          © 2017 Copyright G.Jim Tsai, All rights reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script type="text/javascript" src="js/classification.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

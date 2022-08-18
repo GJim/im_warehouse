@@ -175,7 +175,7 @@ function logout() {
     },
     success: function(data) {
       if(data.S) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
       }
       else {
         Materialize.toast(data.R, 2000, 'rounded white-text red darken-4');
